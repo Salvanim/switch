@@ -1,16 +1,18 @@
-class switch():
+class switch:
     def __init__(self, *caseOutPairs, end=None):
         self.dictionary = {}
-        
+        # Check for odd caseOutPairs length and set the last as end if needed
         if len(caseOutPairs) % 2 != 0:
-            raise ValueError("caseOutPairs must contain pairs of case-output elements.")
+            self.end = caseOutPairs[-1]
+            caseOutPairs = caseOutPairs[:-1]  # Remove last item from cases
+        else:
+            self.end = end  # Use specified end if provided
 
+        # Populate the dictionary with case-output pairs
         for i in range(0, len(caseOutPairs), 2):
             case = caseOutPairs[i]
             output = caseOutPairs[i+1]
             self.dictionary[case] = output
-
-        self.end = end
     
     def __call__(self, matchCase, *args, **kwargs):
         if matchCase in self.dictionary:
