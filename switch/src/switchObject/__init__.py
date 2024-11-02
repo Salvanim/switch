@@ -7,6 +7,7 @@ class switch:
 
         if type(caseOutPairs) == dict: #handle dictionary cases by seting stored dictionary to caseOutPairs
             self.dictionary = caseOutPairs
+            self.end = end
 
         else:
             if len(caseOutPairs) % 2 != 0: #Check if caseOutPairs list length is even
