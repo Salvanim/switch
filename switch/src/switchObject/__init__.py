@@ -13,7 +13,7 @@ class switch:
             case = caseOutPairs[i]
             output = caseOutPairs[i+1]
             self.dictionary[case] = output
-    
+
     def __call__(self, matchCase, *args, **kwargs):
         if matchCase in self.dictionary:
             result = self.dictionary[matchCase]
@@ -26,8 +26,8 @@ class switch:
                 return self.end(*args, **kwargs)  # Pass arguments if callable
             else:
                 return self.end
-    
-    def __getitem__(self, case):
+
+    def __getitem__(self, case, *args, **kwargs):
         if case in self.dictionary:
             result = self.dictionary[case]
             if callable(result):
@@ -42,3 +42,8 @@ class switch:
 
     def __setitem__(self, case, result):
         self.dictionary[case] = result
+
+    def __repr__(self, *args, **kwargs):
+        endString = ""
+        for k in self.dictionary.keys():
+            endString += f"{k}:{self(k)}\n"
