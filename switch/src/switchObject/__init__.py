@@ -21,23 +21,29 @@ class switch:
                 output = caseOutPairs[i + 1]
                 self.dictionary[case] = output
 
-    def __call__(self, matchCase, *args, **kwargs):
+    def __call__(self, matchCase, *args, includeMatch=False):
         if matchCase in self.dictionary:
             result = self.dictionary[matchCase]
-            
+
             # If result is a switch, recursively call it
             if isinstance(result, switch):
-                return result(matchCase, *args, **kwargs)
+                return result(matchCase, *args)
             elif callable(result):
-                return result(*args, **kwargs)  # Pass arguments if callable
+                if includeMatch:
+                    return result(matchCase, *args[:result.__code__.co_argcount-1])  # Pass arguments if callable, takes arguments to argument length
+                else:
+                   return result(*args[:result.__code__.co_argcount-1])  # Pass arguments if callable, takes arguments to argument length
             else:
                 return result
         else:
             # If end is a switch, recursively call it
             if isinstance(self.end, switch):
-                return self.end(matchCase, *args, **kwargs)
+                return self.end(matchCase, *args)
             elif callable(self.end):
-                return self.end(*args, **kwargs)  # Pass arguments if callable
+                if includeMatch:
+                    return self.end(matchCase, *args[:self.end.__code__.co_argcount-1])  # Pass arguments if callable , takes arguments to argument length
+                else:
+                    return self.end(*args[:self.end.__code__.co_argcount-1])  # Pass arguments if callable , takes arguments to argument length
             else:
                 return self.end
 
