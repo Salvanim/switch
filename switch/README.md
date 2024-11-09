@@ -14,6 +14,11 @@ The `switch` class in Python mimics a `switch-case` statement found in other pro
 
 No additional packages are required. Simply copy the `Switch` class definition into your Python project.
 
+'''
+pip install switchObject
+from switchObject install switch
+'''
+
 ## Usage
 
 The `Switch` class is initialized with multiple case-output pairs, followed by an optional `end` output that acts as the default response when no cases match.
